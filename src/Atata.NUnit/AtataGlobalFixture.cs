@@ -22,6 +22,8 @@ public abstract class AtataGlobalFixture
     [OneTimeSetUp]
     public void SetUpGlobalAtataContext()
     {
+        AtataContext.GlobalProperties.RootNamespace = GetType().Namespace;
+
         ConfigureAtataContextGlobalProperties(AtataContext.GlobalProperties);
 
         AtataContext.BaseConfiguration
