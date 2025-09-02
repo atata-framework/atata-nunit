@@ -34,7 +34,7 @@ public abstract class AtataTestSuite
             .UseDefaultCancellationToken(TestExecutionContext.CurrentContext.CancellationToken);
 
         _testSuiteContextMetadata = TestSuiteAtataContextMetadata.GetForType(GetType());
-        _testSuiteContextMetadata.ApplyToTestSuiteBuilder(builder);
+        _testSuiteContextMetadata.ApplyToTestSuiteBuilder(builder, this);
 
         ConfigureSuiteAtataContext(builder);
 
@@ -59,12 +59,12 @@ public abstract class AtataTestSuite
         AtataContextBuilder builder = AtataContext.CreateBuilder(AtataContextScope.Test)
             .UseDefaultCancellationToken(TestExecutionContext.CurrentContext.CancellationToken);
 
-        _testSuiteContextMetadata?.ApplyToTestBuilder(builder);
+        _testSuiteContextMetadata?.ApplyToTestBuilder(builder, this);
 
         MethodInfo? method = TestContext.CurrentContext.Test.Method?.MethodInfo;
 
         if (method is not null)
-            TestAtataContextMetadata.GetForMethod(method).ApplyToTestBuilder(builder);
+            TestAtataContextMetadata.GetForMethod(method).ApplyToTestBuilder(builder, this);
 
         ConfigureTestAtataContext(builder);
 
