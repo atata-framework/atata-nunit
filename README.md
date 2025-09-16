@@ -5,7 +5,7 @@
 [![Atata docs](https://img.shields.io/badge/docs-Atata_Framework-orange.svg)](https://atata.io)
 [![X](https://img.shields.io/badge/follow-@AtataFramework-blue.svg)](https://x.com/AtataFramework)
 
-**Atata.NUnit** is a .NET library that integrates [Atata](https://github.com/atata-framework/atata) with NUnit.
+**Atata.NUnit** is a C#/.NET library that integrates [Atata](https://github.com/atata-framework/atata) with NUnit.
 
 *The package targets .NET 8.0.*
 
