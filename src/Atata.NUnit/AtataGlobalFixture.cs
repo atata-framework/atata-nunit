@@ -22,6 +22,8 @@ public abstract class AtataGlobalFixture
     [OneTimeSetUp]
     public void SetUpGlobalAtataContext()
     {
+        OnBeforeGlobalSetup();
+
         AtataContext.GlobalProperties.RootNamespace = GetType().Namespace;
 
         ConfigureAtataContextGlobalProperties(AtataContext.GlobalProperties);
@@ -46,14 +48,22 @@ public abstract class AtataGlobalFixture
         ConfigureGlobalAtataContext(builder);
 
         Context = builder.Build();
+
+        OnAfterGlobalSetup();
     }
 
     /// <summary>
     /// Tears down the global <see cref="AtataContext"/> after all tests have run.
     /// </summary>
     [OneTimeTearDown]
-    public void TearDownGlobalAtataContext() =>
+    public void TearDownGlobalAtataContext()
+    {
+        OnBeforeGlobalTeardown();
+
         NUnitAtataContextCompletionHandler.Complete(Context);
+
+        OnAfterGlobalTeardown();
+    }
 
     /// <summary>
     /// Configures the global properties of the <see cref="AtataContext"/>.
@@ -79,6 +89,38 @@ public abstract class AtataGlobalFixture
     /// </summary>
     /// <param name="builder">The builder for the global context.</param>
     protected virtual void ConfigureGlobalAtataContext(AtataContextBuilder builder)
+    {
+    }
+
+    /// <summary>
+    /// Called before the global setup of <see cref="AtataContext"/>.
+    /// The method can be overridden to provide custom logic before global setup.
+    /// </summary>
+    protected virtual void OnBeforeGlobalSetup()
+    {
+    }
+
+    /// <summary>
+    /// Called after the global setup of <see cref="AtataContext"/>.
+    /// The method can be overridden to provide custom logic after global setup.
+    /// </summary>
+    protected virtual void OnAfterGlobalSetup()
+    {
+    }
+
+    /// <summary>
+    /// Called before the global teardown of <see cref="AtataContext"/>.
+    /// The method can be overridden to provide custom logic before global teardown.
+    /// </summary>
+    protected virtual void OnBeforeGlobalTeardown()
+    {
+    }
+
+    /// <summary>
+    /// Called after the global teardown of <see cref="AtataContext"/>.
+    /// The method can be overridden to provide custom logic after global teardown.
+    /// </summary>
+    protected virtual void OnAfterGlobalTeardown()
     {
     }
 }
