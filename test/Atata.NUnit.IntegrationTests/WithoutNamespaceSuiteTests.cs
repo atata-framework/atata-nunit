@@ -7,8 +7,23 @@ namespace Atata.NUnit.IntegrationTests;
 [Property("NUnit suite trait 1", "x")]
 public sealed class WithoutNamespaceSuiteTests : AtataTestSuite
 {
+    private static readonly TestInfo s_expectedSuiteTestInfo = new(
+        typeof(WithoutNamespaceSuiteTests),
+        traits: [
+            new(TestTrait.CategoryName, "NUnit suite category 1"),
+            new("NUnit suite trait 1", "x")
+        ]);
+
     protected override void ConfigureTestAtataContext(AtataContextBuilder builder) =>
         builder.UseVariable("custom-test-variable", true);
+
+    // This setup method behaves like a test to verify the state of the suite Context.
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        Context.Should().NotBeNull().And.Be(AtataContext.Current);
+        Context.Test.Should().Be(s_expectedSuiteTestInfo);
+    }
 
     [Test]
     [Category("NUnit test category 1")]
@@ -24,13 +39,7 @@ public sealed class WithoutNamespaceSuiteTests : AtataTestSuite
 
     [Test]
     public void Context_ParentContext_Test() =>
-        Context.ParentContext!.Test.Should().Be(
-            new TestInfo(
-                typeof(WithoutNamespaceSuiteTests),
-                traits: [
-                    new TestTrait(TestTrait.CategoryName, "NUnit suite category 1"),
-                    new TestTrait("NUnit suite trait 1", "x")
-                ]));
+        Context.ParentContext!.Test.Should().Be(s_expectedSuiteTestInfo);
 
     [Test]
     public void Context_IsCurrent() =>

@@ -11,12 +11,7 @@ public abstract class AtataTestSuite
     private TestSuiteAtataContextMetadata? _testSuiteContextMetadata;
 
     /// <summary>
-    /// Gets the <see cref="AtataContext"/> instance for the test suite.
-    /// </summary>
-    protected AtataContext SuiteContext { get; private set; } = null!;
-
-    /// <summary>
-    /// Gets the <see cref="AtataContext"/> instance for the current test.
+    /// Gets the <see cref="AtataContext"/> instance for the current test or test suite.
     /// </summary>
     protected AtataContext Context =>
         _testIdContextMap.TryGetValue(TestExecutionContext.CurrentContext.CurrentTest.Id, out var context)
@@ -38,7 +33,8 @@ public abstract class AtataTestSuite
 
         ConfigureSuiteAtataContext(builder);
 
-        SuiteContext = builder.Build();
+        AtataContext context = builder.Build();
+        SetCurrentContext(context);
     }
 
     /// <summary>
@@ -47,7 +43,7 @@ public abstract class AtataTestSuite
     /// </summary>
     [OneTimeTearDown]
     public void TearDownSuiteAtataContext() =>
-        NUnitAtataContextCompletionHandler.Complete(SuiteContext);
+        NUnitAtataContextCompletionHandler.Complete(Context);
 
     /// <summary>
     /// Sets up the <see cref="AtataContext"/> for the current test.
@@ -69,9 +65,7 @@ public abstract class AtataTestSuite
         ConfigureTestAtataContext(builder);
 
         AtataContext context = builder.Build();
-
-        var testId = TestExecutionContext.CurrentContext.CurrentTest.Id;
-        _testIdContextMap[testId] = context;
+        SetCurrentContext(context);
     }
 
     /// <summary>
@@ -98,5 +92,11 @@ public abstract class AtataTestSuite
     /// <param name="builder">The <see cref="AtataContextBuilder"/> used to configure the context.</param>
     protected virtual void ConfigureTestAtataContext(AtataContextBuilder builder)
     {
+    }
+
+    private void SetCurrentContext(AtataContext context)
+    {
+        var testId = TestExecutionContext.CurrentContext.CurrentTest.Id;
+        _testIdContextMap[testId] = context;
     }
 }
