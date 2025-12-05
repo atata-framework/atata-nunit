@@ -6,6 +6,9 @@
 [SetUpFixture]
 public abstract class AtataNamespaceFixture
 {
+    /// <summary>
+    /// Gets the namespace <see cref="AtataContext"/> instance.
+    /// </summary>
     protected AtataContext Context { get; private set; } = null!;
 
     /// <summary>
