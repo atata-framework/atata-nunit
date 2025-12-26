@@ -37,10 +37,6 @@ jobs:
     vmImage: $(imageName)
   steps:
   - task: UseDotNet@2
-    displayName: Set up .NET SDK 8
-    inputs:
-      version: '8.x'
-  - task: UseDotNet@2
     displayName: Set up .NET SDK
     inputs:
       version: $(netSdkVersion)
