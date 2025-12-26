@@ -54,7 +54,7 @@ public static class NUnitAtataContextBuilderExtensions
 
     /// <summary>
     /// Sets <see cref="NUnitAggregateAssertionStrategy"/> as the aggregate assertion strategy.
-    /// The <see cref="NUnitAggregateAssertionStrategy"/> uses NUnit's <see cref="Assert.EnterMultipleScope"/> method for aggregate assertion.
+    /// The <see cref="NUnitAggregateAssertionStrategy"/> uses NUnit's <see cref="global::NUnit.Framework.Assert.EnterMultipleScope"/> method for aggregate assertion.
     /// </summary>
     /// <param name="builder">The builder.</param>
     /// <returns>The same <see cref="AtataContextBuilder"/> instance.</returns>

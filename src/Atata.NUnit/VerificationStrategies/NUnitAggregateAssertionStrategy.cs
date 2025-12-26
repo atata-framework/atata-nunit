@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Represents aggregate assertion strategy for NUnit.
-/// Uses NUnit's <see cref="Assert.EnterMultipleScope"/> method for aggregate assertion.
+/// Uses NUnit's <see cref="global::NUnit.Framework.Assert.EnterMultipleScope"/> method for aggregate assertion.
 /// </summary>
 public sealed class NUnitAggregateAssertionStrategy : IAggregateAssertionStrategy
 {
