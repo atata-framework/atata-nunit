@@ -50,7 +50,7 @@ jobs:
     displayName: Build test projects
     inputs:
       command: build
-      projects: '**/*Tests.csproj'
+      projects: 'test/*/*Tests.csproj'
       arguments: -c $(buildConfiguration) -p:RunAnalyzers=false
   - task: DotNetCoreCLI@2
     displayName: Run integration tests
