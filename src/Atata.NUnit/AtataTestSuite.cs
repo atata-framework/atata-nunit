@@ -52,12 +52,14 @@ public abstract class AtataTestSuite
     [SetUp]
     public void SetUpTestAtataContext()
     {
+        TestExecutionContext currentTestExecutionContext = TestExecutionContext.CurrentContext;
+
         AtataContextBuilder builder = AtataContext.CreateBuilder(AtataContextScope.Test)
-            .UseDefaultCancellationToken(TestExecutionContext.CurrentContext.CancellationToken);
+            .UseDefaultCancellationToken(currentTestExecutionContext.CancellationToken);
 
         _testSuiteContextMetadata?.ApplyToTestBuilder(builder, this);
 
-        MethodInfo? method = TestContext.CurrentContext.Test.Method?.MethodInfo;
+        MethodInfo? method = currentTestExecutionContext.CurrentTest.Method?.MethodInfo;
 
         if (method is not null)
             TestAtataContextMetadata.GetForMethod(method).ApplyToTestBuilder(builder, this);
