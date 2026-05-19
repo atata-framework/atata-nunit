@@ -13,10 +13,10 @@
 
 Atata.NUnit provides seamless integration between Atata Framework and NUnit testing framework, offering:
 
-- **Test suite base classes**. `AtataTestSuite`, `AtataGlobalFixture`, and `AtataNamespaceFixture` for different testing scopes.
+- **Test suite and fixture base classes**. `AtataTestSuite`, `AtataGlobalFixture`, and `AtataNamespaceFixture` for different testing scopes.
 - **NUnit-aware context configuration**. Automatic integration of NUnit test names, suite names, traits, and properties.
 - **Enhanced assertion strategies**. NUnit-compatible aggregate assertions and warning reporting.
-- **Log integration**. Direct logging output to NUnit test context.
+- **Logging**. Integration with NUnit's test output for Atata logs.
 - **Error handling**. Built-in Atata error handling (screenshots, page snapshots, etc.) on test failures and attaching artifacts to test results.
 - **Parallel test support**. Full support for NUnit's parallel execution capabilities.
 
