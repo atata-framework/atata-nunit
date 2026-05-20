@@ -109,6 +109,8 @@ public sealed class SampleTests : AtataTestSuite
 }
 ```
 
+Use `Context` property of the base class to access the current `AtataContext` instance.
+
 ### Namespace fixture
 
 Use `AtataNamespaceFixture` for namespace-scoped setup:
